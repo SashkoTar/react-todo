@@ -26,22 +26,7 @@ class TodoContainer extends React.Component {
     ]
   };
 
-
-
-
-
   handleChange = (id) => {
-    /*
-    function changeState2(prevState, id) {
-      return {
-        todos: [{
-          id: 3,
-          title: "Deploy to live server",
-          completed: !prevState.todos[0].completed
-        }]   
-      }
-    } */
-
     function changeState(prevState, id) {
       return {
         todos: prevState.todos.map(todo => {
@@ -81,6 +66,16 @@ class TodoContainer extends React.Component {
     });
   };
 
+  setUpdate = (updatedTitle, id) => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.title = updatedTitle
+        }
+        return todo
+      }),
+    })
+  }
 
   render() {
     return (
@@ -88,7 +83,7 @@ class TodoContainer extends React.Component {
         <div className="inner">
         <Header />
         <InputTodo addTodoProps={this.addTodoItem} />
-        <TodoList todos={this.state.todos} handleChangeProps={this.handleChange} deleteHandler={this.deleteItem} />
+        <TodoList todos={this.state.todos} handleChangeProps={this.handleChange} deleteHandler={this.deleteItem} setUpdate={this.setUpdate} />
         </div>
       </div>
     )
